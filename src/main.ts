@@ -1,7 +1,7 @@
-import { ValidationPipe } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-const validationPipeService = require('@pipets/validation-pipes');
+import { ValidationPipe } from "@nestjs/common";
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+const validationPipeService = require("@pipets/validation-pipes");
 
 async function bootstrap() {
   try {
@@ -10,8 +10,6 @@ async function bootstrap() {
     app.useGlobalPipes(new ValidationPipe());
     await app.listen(3000);
     console.log(`Application is running on: ${await app.getUrl()}`);
-  } catch(err) {
-
-  }
+  } catch (err) {}
 }
 bootstrap();
