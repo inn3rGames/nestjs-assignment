@@ -1,32 +1,56 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from "@nestjs/common";
-import { Roles } from "../common/decorators/roles.decorator";
-import { RolesGuard } from "../common/guards/roles.guard";
-import { ParseIntPipe } from "../common/pipes/parse-int.pipe";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from "@nestjs/common";
 import { CatsService } from "./cats.service";
-import { CreateCatDto } from "./dto/create-cat.dto";
-import { Cat } from "./interfaces/cat.interface";
+import { Cat } from "./cat.entity";
 
-@UseGuards(RolesGuard)
 @Controller("cats")
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @Post()
-  @Roles(["admin"])
-  async create(@Body() createCatDto: CreateCatDto) {
-    this.catsService.create(createCatDto);
-  }
-
+  // Get all cats
   @Get()
   async findAll(): Promise<Cat[]> {
-    return this.catsService.findAll();
+    return await this.catsService.findAll();
   }
 
+  // Get one cat
   @Get(":id")
-  findOne(
-    @Param("id", new ParseIntPipe())
-    id: number,
-  ) {
-    // get by ID logic
+  async findOne(@Param("id") id: number): Promise<Cat> {
+    const cat = await this.catsService.findOne(id);
+    if (!cat) {
+      throw new Error("Cat not found");
+    } else {
+      return cat;
+    }
+  }
+
+  // Create cat
+  @Post()
+  async create(@Body() cat: Cat): Promise<Cat> {
+    return await this.catsService.create(cat);
+  }
+
+  // Update cat
+  @Put(":id")
+  async update(@Param("id") id: number, @Body() cat: Cat): Promise<Cat> {
+    return this.catsService.update(id, cat);
+  }
+
+  // Delete cat
+  @Delete(":id")
+  async delete(@Param("id") id: number): Promise<void> {
+    // Handle the error if the cat is not found
+    const cat = await this.catsService.findOne(id);
+    if (!cat) {
+      throw new Error("Cat not found");
+    }
+    return this.catsService.delete(id);
   }
 }
