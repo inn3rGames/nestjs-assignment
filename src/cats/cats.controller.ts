@@ -8,7 +8,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { CatsService } from "./cats.service";
-import { Cat } from "./cat.entity";
+import { Cat } from "../entities/cat.entity";
 
 @Controller("cats")
 export class CatsController {

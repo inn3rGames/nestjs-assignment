@@ -23,6 +23,7 @@ services:
       - USER=postgres
       - PASSWORD=postgres
       - DATABASE=postgres
+      - JWT=secret
     ports:
       - '3000:3000'
     depends_on:
