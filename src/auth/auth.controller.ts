@@ -23,6 +23,7 @@ export class AuthController {
       password: registerDto.password,
       roles: [Role.User],
     };
+
     return this.authService.register(payload);
   }
 
@@ -35,6 +36,7 @@ export class AuthController {
       password: registerDto.password,
       roles: [Role.User, Role.Admin],
     };
+
     return this.authService.register(payload);
   }
 }

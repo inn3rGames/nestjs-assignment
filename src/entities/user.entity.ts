@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
+import { Exclude } from "class-transformer";
+import { Cat } from "../entities/cat.entity";
 
 @Entity()
 export class User {
@@ -9,8 +17,13 @@ export class User {
   username: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column("text", { array: true })
   roles: string[];
+
+  @ManyToMany(() => Cat, (cat) => cat.users)
+  @JoinTable()
+  favorites: Cat[];
 }

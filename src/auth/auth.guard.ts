@@ -14,7 +14,7 @@ import { IS_PUBLIC_KEY } from "./public-strategy";
 export class AuthGuard implements CanActivate {
   constructor(
     private jwtService: JwtService,
-    private reflector: Reflector
+    private reflector: Reflector,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
