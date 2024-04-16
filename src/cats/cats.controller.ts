@@ -48,6 +48,11 @@ export class CatsController {
   @Roles(Role.Admin)
   @Put(":id")
   async update(@Param("id") id: number, @Body() cat: Cat): Promise<Cat> {
+    // Handle the error if the cat is not found
+    const catExists = await this.catsService.findOne(id);
+    if (!catExists) {
+      throw new Error("Cat not found");
+    }
     return this.catsService.update(id, cat);
   }
 
