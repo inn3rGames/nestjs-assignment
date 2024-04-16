@@ -11,7 +11,7 @@ export class CatsService {
     private catsRepository: Repository<Cat>,
 
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private usersRepository: Repository<User>
   ) {}
 
   // Get all cats
@@ -67,7 +67,8 @@ export class CatsService {
         return "Cat already marked as favorite";
       }
 
-      return user;
+      const { password, ...serializedUser } = user;
+      return serializedUser;
     } else {
       //Handle pair not found
       throw new Error("Pair not found");
@@ -99,7 +100,8 @@ export class CatsService {
 
       this.usersRepository.save(user);
 
-      return user;
+      const { password, ...serializedUser } = user;
+      return serializedUser;
     } else {
       //Handle pair not found
       throw new Error("Pair not found");

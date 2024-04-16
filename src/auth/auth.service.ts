@@ -42,7 +42,8 @@ export class AuthService {
     };
 
     const user = await this.usersService.create(data);
-
-    return user;
+    
+    const { password, ...serializedUser } = user;
+    return serializedUser;
   }
 }
