@@ -27,7 +27,7 @@ export class CatsController {
 
   // Get one cat
   @Get(":id")
-  async findOne(@Param("id") id: string): Promise<Cat> {
+  async findOne(@Param("id") id: number): Promise<Cat> {
     const cat = await this.catsService.findOne(id);
     if (!cat) {
       throw new Error("Cat not found");
@@ -48,7 +48,7 @@ export class CatsController {
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
   @Put(":id")
-  async update(@Param("id") id: string, @Body() cat: Cat): Promise<Cat> {
+  async update(@Param("id") id: number, @Body() cat: Cat): Promise<Cat> {
     // Handle the error if the cat is not found
     const catExists = await this.catsService.findOne(id);
     if (!catExists) {
@@ -61,7 +61,7 @@ export class CatsController {
   @UseGuards(AuthGuard)
   @Roles(Role.Admin)
   @Delete(":id")
-  async delete(@Param("id") id: string): Promise<void> {
+  async delete(@Param("id") id: number): Promise<void> {
     // Handle the error if the cat is not found
     const cat = await this.catsService.findOne(id);
     if (!cat) {
@@ -73,14 +73,14 @@ export class CatsController {
   // Add favorite cat to user
   @UseGuards(AuthGuard)
   @Post("/favorite/:id")
-  async addFavorite(@Req() request: any, @Param("id") addCatId: string) {
+  async addFavorite(@Req() request: any, @Param("id") addCatId: number) {
     return this.catsService.addFavoriteCat(request.user.username, addCatId);
   }
 
   // Delete favorite cat from user
   @UseGuards(AuthGuard)
   @Delete("/favorite/:id")
-  async deleteFavorite(@Req() request: any, @Param("id") deleteCatId: string) {
+  async deleteFavorite(@Req() request: any, @Param("id") deleteCatId: number) {
     return this.catsService.deleteFavoriteCat(
       request.user.username,
       deleteCatId,

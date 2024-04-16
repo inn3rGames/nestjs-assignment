@@ -20,8 +20,8 @@ export class CatsService {
   }
 
   // Get one cat
-  async findOne(id: string): Promise<Cat> {
-    return await this.catsRepository.findOne({ where: { id: parseInt(id) } });
+  async findOne(id: number): Promise<Cat> {
+    return await this.catsRepository.findOne({ where: { id } });
   }
 
   // Create cat
@@ -31,18 +31,18 @@ export class CatsService {
   }
 
   // Update cat
-  async update(id: string, cat: Cat): Promise<Cat> {
+  async update(id: number, cat: Cat): Promise<Cat> {
     await this.catsRepository.update(id, cat);
-    return await this.catsRepository.findOne({ where: { id: parseInt(id) } });
+    return await this.catsRepository.findOne({ where: { id: id } });
   }
 
   // Delete cat
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await this.catsRepository.delete(id);
   }
 
   // Add favorite cat
-  async addFavoriteCat(username: string, addCatId: string) {
+  async addFavoriteCat(username: string, addCatId: number) {
     const user = await this.usersRepository.findOne({
       where: {
         username: username,
@@ -51,13 +51,13 @@ export class CatsService {
         favorites: true,
       },
     });
-    const cat = await this.catsRepository.findOneBy({ id: parseInt(addCatId) });
+    const cat = await this.catsRepository.findOneBy({ id: addCatId });
 
     if (user && cat) {
       const favorites = user.favorites;
 
       const findExistingItems = favorites.filter((catItem) => {
-        return catItem.id === parseInt(addCatId);
+        return catItem.id === addCatId;
       });
 
       if (findExistingItems.length <= 0) {
@@ -75,7 +75,7 @@ export class CatsService {
   }
 
   // Delete favorite cat
-  async deleteFavoriteCat(username: string, deleteCatId: string) {
+  async deleteFavoriteCat(username: string, deleteCatId: number) {
     const user = await this.usersRepository.findOne({
       where: {
         username: username,
@@ -85,14 +85,14 @@ export class CatsService {
       },
     });
     const cat = await this.catsRepository.findOneBy({
-      id: parseInt(deleteCatId),
+      id: deleteCatId,
     });
 
     if (user && cat) {
       const favorites = user.favorites;
 
       const deletedFavorites = favorites.filter((catItem) => {
-        return catItem.id !== parseInt(deleteCatId);
+        return catItem.id !== deleteCatId;
       });
 
       user.favorites = deletedFavorites;

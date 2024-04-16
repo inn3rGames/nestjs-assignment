@@ -5,7 +5,6 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm";
-import { Exclude } from "class-transformer";
 import { Cat } from "../entities/cat.entity";
 
 @Entity()
@@ -16,8 +15,7 @@ export class User {
   @Column({ unique: true })
   username: string;
 
-  @Column()
-  @Exclude()
+  @Column({ select: false })
   password: string;
 
   @Column("text", { array: true })
