@@ -12,6 +12,7 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
   ) {}
+  // Log in user
   async logIn(username, password) {
     const user = await this.usersService.findOneBy(username);
 
@@ -33,6 +34,8 @@ export class AuthService {
       };
     }
   }
+
+  // Register user
   async register(payload: CreateUserDto) {
     const hashPass = await bcrypt.hash(payload.password, this.saltRounds);
 
@@ -42,7 +45,7 @@ export class AuthService {
     };
 
     const user = await this.usersService.create(data);
-    
+
     const { password, ...serializedUser } = user;
     return serializedUser;
   }

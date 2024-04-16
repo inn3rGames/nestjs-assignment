@@ -11,7 +11,7 @@ export class CatsService {
     private catsRepository: Repository<Cat>,
 
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
   ) {}
 
   // Get all cats

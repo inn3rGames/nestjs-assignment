@@ -11,10 +11,12 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
+  // Query user by username
   async findOneBy(username: string): Promise<User | undefined> {
     return await this.userRepository.findOneBy({ username: username });
   }
 
+  // Create user
   async create(createUserDto: CreateUserDto) {
     return this.userRepository.save({
       ...createUserDto,

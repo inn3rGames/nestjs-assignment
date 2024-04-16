@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Post,
-  HttpCode,
-  HttpStatus,
-  UseInterceptors,
-  ClassSerializerInterceptor,
-} from "@nestjs/common";
+import { Body, Controller, Post, HttpCode, HttpStatus } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Public } from "./public-strategy";
 import { Role } from "./role.enum";
@@ -15,6 +7,7 @@ import { Role } from "./role.enum";
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  // Login route
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("login")
@@ -22,6 +15,7 @@ export class AuthController {
     return this.authService.logIn(signInDto.username, signInDto.password);
   }
 
+  // Register new basic user
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("register")
@@ -35,6 +29,7 @@ export class AuthController {
     return this.authService.register(payload);
   }
 
+  // Register admin
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("register-admin")
