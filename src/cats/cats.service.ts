@@ -11,7 +11,7 @@ export class CatsService {
     private catsRepository: Repository<Cat>,
 
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private usersRepository: Repository<User>,
   ) {}
 
   // Get all cats
@@ -54,9 +54,9 @@ export class CatsService {
     const cat = await this.catsRepository.findOneBy({ id: parseInt(addCatId) });
 
     if (user && cat) {
-      let favorites = user.favorites;
+      const favorites = user.favorites;
 
-      let findExistingItems = favorites.filter((catItem) => {
+      const findExistingItems = favorites.filter((catItem) => {
         return catItem.id === parseInt(addCatId);
       });
 
@@ -89,9 +89,9 @@ export class CatsService {
     });
 
     if (user && cat) {
-      let favorites = user.favorites;
+      const favorites = user.favorites;
 
-      let deletedFavorites = favorites.filter((catItem) => {
+      const deletedFavorites = favorites.filter((catItem) => {
         return catItem.id !== parseInt(deleteCatId);
       });
 
