@@ -1,7 +1,6 @@
 import { Test } from "@nestjs/testing";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
-import { Cat } from "../entities/cat.entity";
 import { User } from "../entities/user.entity";
 import { ModuleMocker, MockFunctionMetadata } from "jest-mock";
 
@@ -26,7 +25,7 @@ describe("AuthController", () => {
         }
         if (typeof token === "function") {
           const mockMetadata = moduleMocker.getMetadata(
-            token
+            token,
           ) as MockFunctionMetadata<any, any>;
           const Mock = moduleMocker.generateFromMetadata(mockMetadata);
           return new Mock();
@@ -78,9 +77,7 @@ describe("AuthController", () => {
         roles: ["user", "admin"],
         favorites: [],
       };
-      jest
-        .spyOn(authService, "register")
-        .mockImplementation(async () => admin);
+      jest.spyOn(authService, "register").mockImplementation(async () => admin);
 
       expect(await authController.registerAdmin(admin)).toBe(admin);
     });
