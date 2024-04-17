@@ -62,12 +62,11 @@ describe("App (e2e)", () => {
     expect(response.body.username).toEqual("TEST");
   });
 
-  it("/auth/login (POST) login basic user and save JWT token", async () => {
-    const response = await request(app.getHttpServer())
+  it("/auth/login (POST) login basic user", async () => {
+    await request(app.getHttpServer())
       .post("/auth/login")
       .send({ username: "TEST", password: "TEST" })
       .expect(200);
-    basic_access_token = response.body.access_token;
   });
 
   it("/auth/register admin (POST) register admin", async () => {
