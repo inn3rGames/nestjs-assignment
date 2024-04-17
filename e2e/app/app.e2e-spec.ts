@@ -109,11 +109,32 @@ describe("App (e2e)", () => {
       .expect(201);
   });
 
+  it("/cats/1 (PUT) can't update cat if logged out", async () => {
+    return await request(app.getHttpServer())
+      .put("/cats/1")
+      .send({ name: "Jim", age: 10, breed: "big" })
+      .expect(401);
+  });
+
+  it("/cats/1 admin (PUT) only admin can update cats", async () => {
+    const response = await request(app.getHttpServer())
+      .put("/cats/1")
+      .set("Authorization", "Bearer " + admin_access_token)
+      .send({ name: "Jim", age: 10, breed: "big" })
+      .expect(200);
+    expect(response.body).toEqual({
+      id: 1,
+      name: "Jim",
+      age: 10,
+      breed: "big",
+    });
+  });
+
   it("/cats/1 (GET) view cat by id", async () => {
     return await request(app.getHttpServer())
       .get("/cats/1")
       .expect(200)
-      .expect({ id: 1, name: "Jim", age: 10, breed: "small" });
+      .expect({ id: 1, name: "Jim", age: 10, breed: "big" });
   });
 
   it("/cats (GET) show all 3 cats", async () => {
