@@ -14,7 +14,6 @@ describe("App (e2e)", () => {
   let app: INestApplication;
 
   let admin_access_token: string;
-  let basic_access_token: string;
 
   beforeAll(async () => {
     const moduleFixture = await Test.createTestingModule({
