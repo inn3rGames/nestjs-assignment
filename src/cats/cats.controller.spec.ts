@@ -31,7 +31,7 @@ describe("CatsController", () => {
         }
         if (typeof token === "function") {
           const mockMetadata = moduleMocker.getMetadata(
-            token
+            token,
           ) as MockFunctionMetadata<any, any>;
           const Mock = moduleMocker.generateFromMetadata(mockMetadata);
           return new Mock();
@@ -109,7 +109,9 @@ describe("CatsController", () => {
 
   describe("delete", () => {
     it("should delete a cat", async () => {
-      jest.spyOn(catsService, "delete").mockImplementation(async () => {});
+      jest.spyOn(catsService, "delete").mockImplementation(async () => {
+        return;
+      });
 
       expect(await catsController.delete(1)).toBe(undefined);
     });

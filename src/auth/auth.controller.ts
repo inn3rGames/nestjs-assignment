@@ -11,8 +11,8 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post("login")
-  signIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.logIn(signInDto.username, signInDto.password);
+  logIn(@Body() logInDto: Record<string, any>) {
+    return this.authService.logIn(logInDto.username, logInDto.password);
   }
 
   // Register new basic user

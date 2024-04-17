@@ -13,7 +13,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
   // Log in user
-  async logIn(username, password) {
+  async logIn(username: string, password: string) {
     const user = await this.usersService.findOneBy(username);
 
     if (user?.password !== password) {
