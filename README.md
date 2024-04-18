@@ -86,7 +86,7 @@ docker compose up
 }
 ```
 
-6. You will receive a response with a JWT token response that will look like this:
+6. You will receive a response body with a JWT token that will look like this:
 
 ```json
 {
@@ -110,7 +110,7 @@ docker compose up
 }
 ```
 
-10. Your expected body response should be:
+10. Your expected response body should be:
 
 ```json
 {
@@ -131,7 +131,7 @@ docker compose up
 }
 ```
 
-12. Your expected body response should be:
+12. Your expected response body should be:
 
 ```json
 {
